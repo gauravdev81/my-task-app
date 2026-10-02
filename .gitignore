@@ -1,0 +1,4 @@
+env/
+.env
+__pycache__/
+task_management.db
