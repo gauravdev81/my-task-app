@@ -29,7 +29,7 @@ def get_tasks(db: Session):
     return tasks
 
 def get_one_task(task_id: int, db: Session):
-    one_task = db.query(TaskModel).get(task_id)
+    one_task = db.get(TaskModel, task_id)
 
     if not one_task:
         raise HTTPException(404, detail="Task Id doesn't exist")
@@ -43,7 +43,7 @@ def get_one_task(task_id: int, db: Session):
     
 
 def update_task(task_id:int, body:TaskSchema, db:Session):
-    task = db.query(TaskModel).get(task_id)
+    task = db.get(TaskModel, task_id)
     if not task:
         raise HTTPException(401, detail="Task Id doesn't exist")
     
@@ -67,7 +67,7 @@ def update_task(task_id:int, body:TaskSchema, db:Session):
     }
 
 def delete_task(task_id:int, db:Session):
-    task = db.query(TaskModel).get(task_id)
+    task = db.get(TaskModel, task_id)
     if not task:
         raise HTTPException(404, detail="Task Id doesn't exist")
     

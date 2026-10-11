@@ -18,6 +18,7 @@ This project is created for learning and practicing backend API development with
 - Python
 - FastAPI
 - Pydantic
+- Uvicorn
 
 ## Project Structure
 
@@ -31,3 +32,10 @@ my-task-app/
 ├── requirements.txt
 ├── .gitignore
 └── README.md
+
+## Local Setup
+
+- Create a virtual env. Enter in venv.
+- Install FastAPI using `pip install "fastapi[standard]"`
+- Install Sqlalchemy using `pip install sqlalchemy` (ORM) and 
+- pip install psycopg
