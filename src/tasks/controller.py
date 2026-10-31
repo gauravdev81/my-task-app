@@ -45,7 +45,7 @@ def get_one_task(task_id: int, db: Session):
 def update_task(task_id:int, body:TaskSchema, db:Session):
     task = db.get(TaskModel, task_id)
     if not task:
-        raise HTTPException(401, detail="Task Id doesn't exist")
+        raise HTTPException(404, detail="Task Id doesn't exist")
     
     data = body.model_dump()
     # below 3 lines the way to update the task object with new data from the request body.
