@@ -5,7 +5,11 @@ from fastapi import HTTPException
 
 def create_task(body:TaskSchema, db:Session):
     data = body.model_dump()
-    new_task = TaskModel(title=data["title"], description=data["description"], is_completed=data["is_completed"])
+    new_task = TaskModel(
+        title=data["title"], 
+        description=data["description"], 
+        is_completed=data["is_completed"]
+    )
 
     db.add(new_task)
     db.commit()
@@ -61,10 +65,11 @@ def update_task(task_id:int, body:TaskSchema, db:Session):
     db.commit()
     db.refresh(task)
 
-    return {
-        "status": "Task Updated Successfully",
-        "data": task
-    }
+    # return {
+    #     "status": "Task Updated Successfully",
+    #     "data": task
+    # }
+    return task
 
 def delete_task(task_id:int, db:Session):
     task = db.get(TaskModel, task_id)

@@ -3,4 +3,24 @@
 # These DTOs help to encapsulate the data and ensure that only the necessary information is passed around, 
 # improving maintainability and reducing coupling between components.
 
-#For Data Validation, we can use Pydantic models to define the structure and validation rules for the data being transferred.
+#For Data Validation, we can use Pydantic models to define the structure and validation rules for the data being transferred.\
+
+
+from pydantic import BaseModel
+
+class UserSchema(BaseModel):
+    name: str
+    username: str
+    password: str
+    email: str
+
+class UserResponseSchema(BaseModel):
+    name: str
+    username: str
+    email: str
+    id: int
+
+class LoginSchema(BaseModel):
+    username: str
+    password: str
+    
