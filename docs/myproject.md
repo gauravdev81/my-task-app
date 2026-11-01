@@ -53,3 +53,7 @@ DELETE /tasks/{id}
 ## Important decisions
 
 ...
+
+### Alembic commands:
+alembic revision --autogenerate -m "add user_id to tasks"
+alembic upgrade head
