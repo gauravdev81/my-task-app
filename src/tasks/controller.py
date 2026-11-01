@@ -25,8 +25,8 @@ def create_task(body:TaskSchema, db:Session, user: UserModel):
 
     return new_task
 
-def get_tasks(db: Session):
-    tasks = db.query(TaskModel).all()
+def get_tasks(db: Session, user: UserModel):
+    tasks = db.query(TaskModel).filter(TaskModel.user_id == user.id).all()
     # return {
     #     "status":"All Tasks",
     #     "data": tasks
@@ -48,10 +48,13 @@ def get_one_task(task_id: int, db: Session):
 	# }
     
 
-def update_task(task_id:int, body:TaskSchema, db:Session):
-    task = db.get(TaskModel, task_id)
+def update_task(task_id:int, body:TaskSchema, db:Session, user: UserModel):
+    task: TaskModel = db.get(TaskModel, task_id)
     if not task:
         raise HTTPException(404, detail="Task Id doesn't exist")
+
+    if task.user_id != user.id:
+        raise HTTPException(403, detail="You are not authorized to update this task")
     
     data = body.model_dump()
     # below 3 lines the way to update the task object with new data from the request body.
@@ -73,10 +76,13 @@ def update_task(task_id:int, body:TaskSchema, db:Session):
     # }
     return task
 
-def delete_task(task_id:int, db:Session):
+def delete_task(task_id:int, db:Session, user: UserModel):
     task = db.get(TaskModel, task_id)
     if not task:
         raise HTTPException(404, detail="Task Id doesn't exist")
+
+    if task.user_id != user.id:
+        raise HTTPException(403, detail="You are not authorized to delete this task")
     
     db.delete(task)
     db.commit()
